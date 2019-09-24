@@ -1,38 +1,43 @@
 package com.ashindigo.customrecord;
 
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.ItemRecord;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.text.translation.I18n;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraft.item.MusicDiscItem;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 
-import javax.annotation.Nonnull;
-import javax.annotation.ParametersAreNonnullByDefault;
+public class ItemCustomRecord extends MusicDiscItem {
 
-class ItemCustomRecord extends ItemRecord {
+    private final ItemStack stack;
+    private final String name;
+    private final Identifier id;
 
-    private final ItemStack item;
-
-    ItemCustomRecord(String name, SoundEvent sound, ItemStack item) {
-        super(name, sound);
-        this.item = item;
-        this.setRegistryName(CustomRecord.MODID, name);
-        this.setUnlocalizedName(CustomRecord.MODID + "." + name);
-        this.setCreativeTab(CreativeTabs.MISC);
-        ForgeRegistries.ITEMS.register(this);
-
+    public ItemCustomRecord(SoundEvent event, ItemStack stack, String name) {
+        super(15, event, new Settings().group(ItemGroup.MISC).maxCount(1)); // Sorry redstoners
+        this.stack = stack;
+        this.name = name;
+        this.id = new Identifier(CustomRecordMod.MODID, event.getId().getPath());
     }
 
-    @Override
-    @Nonnull
-    @ParametersAreNonnullByDefault
-    @SuppressWarnings("deprecation")
-    public String getItemStackDisplayName(ItemStack stack) {
-        return I18n.translateToLocal("item.record.name").trim();
+    public ItemStack getStack() {
+        return stack;
     }
 
-    public ItemStack getItem() {
-        return item;
+    @Environment(EnvType.CLIENT)
+    public Text getDescription() {
+        return new LiteralText(getIName());
     }
+
+    public String getIName() {
+        return name;
+    }
+
+    public Identifier getID() {
+        return id;
+    }
+
 }
