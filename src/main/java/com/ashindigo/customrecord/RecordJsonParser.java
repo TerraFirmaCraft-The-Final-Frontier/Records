@@ -37,7 +37,7 @@ public class RecordJsonParser {
                 SoundEvent event = new SoundEvent(new Identifier(CustomRecordMod.MODID, object.getValue().getAsJsonObject().get("filename").getAsString()));
                 Item item = Registry.ITEM.get(Identifier.tryParse(object.getValue().getAsJsonObject().get("item").getAsString()));
                 ItemStack stack = new ItemStack(Objects.requireNonNull(item));
-                records.add(new ItemCustomRecord(event, stack, object.getValue().getAsJsonObject().get("name").getAsString()));
+                records.add(new ItemCustomRecord(new Identifier(CustomRecordMod.MODID, object.getValue().getAsJsonObject().get("filename").getAsString()), event, stack, object.getValue().getAsJsonObject().get("name").getAsString()));
                 //map.put(records.get(i++), object.getValue().getAsJsonObject().get("name").getAsString());
             }
         }

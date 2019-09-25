@@ -12,15 +12,17 @@ import net.minecraft.util.Identifier;
 
 public class ItemCustomRecord extends MusicDiscItem {
 
+    private SoundEvent event;
     private final ItemStack stack;
     private final String name;
     private final Identifier id;
 
-    public ItemCustomRecord(SoundEvent event, ItemStack stack, String name) {
+    public ItemCustomRecord(Identifier identifier, SoundEvent event, ItemStack stack, String name) {
         super(15, event, new Settings().group(ItemGroup.MISC).maxCount(1)); // Sorry redstoners
+        this.event = event;
         this.stack = stack;
         this.name = name;
-        this.id = new Identifier(CustomRecordMod.MODID, event.getId().getPath());
+        this.id = identifier;
     }
 
     public ItemStack getStack() {
@@ -40,4 +42,7 @@ public class ItemCustomRecord extends MusicDiscItem {
         return id;
     }
 
+    public SoundEvent getEvent() {
+        return event;
+    }
 }

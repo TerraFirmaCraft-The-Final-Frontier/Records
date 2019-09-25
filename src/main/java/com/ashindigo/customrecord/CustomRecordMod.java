@@ -22,7 +22,7 @@ public class CustomRecordMod implements ModInitializer {
         for (ItemCustomRecord item : list) {
             Registry.register(Registry.ITEM, item.getID(), item);
             AutoJsonApi.addEntry(item.getID(), new AutoConfig(AutoConfig.AutoConfigTextureMode.EXTERNAL, AutoConfig.AutoConfigType.ITEM).setLangName(new TranslatableText("item.minecraft.music_disc_13").asString()));
-            AutoJsonApi.addSoundEntry(item.getSound());
+            AutoJsonApi.addSoundEntry(item.getID(), item.getEvent());
         }
     }
 }

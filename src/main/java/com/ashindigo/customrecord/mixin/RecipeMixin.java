@@ -39,9 +39,9 @@ public abstract class RecipeMixin extends JsonDataLoader {
         for (ItemCustomRecord item : CustomRecordMod.list) {
             map.put(item.getID(), new ShapedRecipe(item.getID(), "", 3, 3,
                     DefaultedList.copyOf(Ingredient.EMPTY,
-                            Ingredient.ofItems(Items.LEATHER), Ingredient.ofItems(Items.LEATHER), Ingredient.ofItems(Items.LEATHER),
-                            Ingredient.ofItems(Items.LEATHER), Ingredient.ofStacks(item.getStack()), Ingredient.ofItems(Items.LEATHER),
-                            Ingredient.ofItems(Items.LEATHER), Ingredient.ofItems(Items.LEATHER), Ingredient.ofItems(Items.LEATHER)),
+                            Ingredient.EMPTY, Ingredient.ofItems(Items.BLACK_TERRACOTTA), Ingredient.EMPTY,
+                            Ingredient.ofItems(Items.BLACK_TERRACOTTA), Ingredient.ofItems(item.getStack().getItem()), Ingredient.ofItems(Items.BLACK_TERRACOTTA),
+                            Ingredient.EMPTY, Ingredient.ofItems(Items.BLACK_TERRACOTTA), Ingredient.EMPTY),
                     new ItemStack(item)));
         }
         map.putAll(recipeMap.get(RecipeType.CRAFTING));
