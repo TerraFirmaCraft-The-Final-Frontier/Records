@@ -1,11 +1,11 @@
 {
   "required": true,
-  "package": "net.fabricmc.example.mixin",
+  "package": "com.ashindigo.customrecord.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "RecipeMixin"
   ],
   "client": [
-    "ExampleMixin"
   ],
   "injectors": {
     "defaultRequire": 1

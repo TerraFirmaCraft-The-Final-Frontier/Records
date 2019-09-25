@@ -23,6 +23,7 @@
     ]
   },
   "mixins": [
+    "customrecord.mixins.json"
   ],
 
   "depends": {
