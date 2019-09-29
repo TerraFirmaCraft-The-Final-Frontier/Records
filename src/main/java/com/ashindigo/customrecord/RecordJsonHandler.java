@@ -5,18 +5,13 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 class RecordJsonHandler {
 
@@ -24,6 +19,7 @@ class RecordJsonHandler {
     private static final ArrayList<SoundEvent> sounds = new ArrayList<>();
     private static final ArrayList<String> name = new ArrayList<>();
     private static final HashMap<ItemCustomRecord, String> map = new HashMap<>();
+    private static final HashMap<ItemCustomRecord, Map.Entry<String, Integer>> recipeMap = new HashMap<>();
 
     static void handleConfig(File file) {
         try {
@@ -35,13 +31,9 @@ class RecordJsonHandler {
                 for (Map.Entry<String, JsonElement> object : element.entrySet()) {
                     name.add(object.getValue().getAsJsonObject().get("name").getAsString());
                     SoundEvent event = new SoundEvent(new ResourceLocation(CustomRecord.MODID, object.getValue().getAsJsonObject().get("filename").getAsString())).setRegistryName(CustomRecord.MODID, object.getValue().getAsJsonObject().get("filename").getAsString());
-                    Item item = Item.getByNameOrId(object.getValue().getAsJsonObject().get("item").getAsString());
-                    if (item == null) {
-                        throw new NullPointerException(object.getValue().getAsJsonObject().get("item").getAsString() + " is not a valid item!");
-                    }
-                    ItemStack stack = new ItemStack(Objects.requireNonNull(item));
-                    stack.setItemDamage(object.getValue().getAsJsonObject().get("meta").getAsInt());
-                    records.add(new ItemCustomRecord(object.getValue().getAsJsonObject().get("filename").getAsString(), event, stack));
+                    ItemCustomRecord item = new ItemCustomRecord(object.getValue().getAsJsonObject().get("filename").getAsString(), event);
+                    records.add(item);
+                    recipeMap.put(item, new AbstractMap.SimpleEntry<>(object.getValue().getAsJsonObject().get("item").getAsString(), object.getValue().getAsJsonObject().get("meta").getAsInt()));
                     sounds.add(event);
                     map.put(records.get(i++), object.getValue().getAsJsonObject().get("name").getAsString());
                 }
@@ -78,6 +70,10 @@ class RecordJsonHandler {
 
     public static ArrayList<ItemCustomRecord> getRecords() {
         return records;
+    }
+
+    public static HashMap<ItemCustomRecord, Map.Entry<String, Integer>> getRecipeMap() {
+        return recipeMap;
     }
 
     public static HashMap<ItemCustomRecord, String> getMap() {

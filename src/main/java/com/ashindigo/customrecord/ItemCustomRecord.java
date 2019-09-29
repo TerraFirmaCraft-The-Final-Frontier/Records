@@ -12,11 +12,10 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 class ItemCustomRecord extends ItemRecord {
 
-    private final ItemStack item;
+    private ItemStack item;
 
-    ItemCustomRecord(String name, SoundEvent sound, ItemStack item) {
+    ItemCustomRecord(String name, SoundEvent sound) {
         super(name, sound);
-        this.item = item;
         this.setRegistryName(CustomRecord.MODID, name);
         this.setUnlocalizedName(CustomRecord.MODID + "." + name);
         this.setCreativeTab(CreativeTabs.MISC);
@@ -34,5 +33,9 @@ class ItemCustomRecord extends ItemRecord {
 
     public ItemStack getItem() {
         return item;
+    }
+
+    public void setItem(ItemStack item) {
+        this.item = item;
     }
 }

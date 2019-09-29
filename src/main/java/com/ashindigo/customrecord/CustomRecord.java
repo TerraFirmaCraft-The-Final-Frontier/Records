@@ -3,6 +3,7 @@ package com.ashindigo.customrecord;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
@@ -37,6 +38,9 @@ public class CustomRecord {
 
     @SubscribeEvent
     public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+        for (ItemCustomRecord item : RecordJsonHandler.getRecipeMap().keySet()) {
+            item.setItem(new ItemStack(Objects.requireNonNull(Item.getByNameOrId(RecordJsonHandler.getRecipeMap().get(item).getKey())), 1, RecordJsonHandler.getRecipeMap().get(item).getValue()));
+        }
         for (ItemCustomRecord record : RecordJsonHandler.getRecords()) {
             NonNullList<Ingredient> list = NonNullList.create();
             list.add(0, Ingredient.EMPTY);
@@ -67,6 +71,8 @@ public class CustomRecord {
         soundsJson = RecordJsonHandler.setupSoundsJson();
         proxy.performReflection();
     }
+
+
 
     @SubscribeEvent
     public void registerSounds(RegistryEvent.Register<SoundEvent> event) {
