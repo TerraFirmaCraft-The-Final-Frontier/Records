@@ -10,8 +10,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class CustomRecordMod implements ModInitializer {
-    public static final String MODID = "customrecord";
+
+    static final String MODID = "customrecord";
     public static ArrayList<ItemCustomRecord> list;
+
     @Override
     public void onInitialize() {
         try {

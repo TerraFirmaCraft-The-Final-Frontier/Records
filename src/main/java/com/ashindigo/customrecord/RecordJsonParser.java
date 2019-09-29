@@ -31,14 +31,12 @@ public class RecordJsonParser {
         Gson gson = new Gson();
         JsonReader reader = new JsonReader(new FileReader(new File(FabricLoader.getInstance().getConfigDirectory() + File.separator + "customrecord" + File.separator + "records.json")));
         JsonObject element = gson.fromJson(reader, JsonObject.class);
-        //int i = 0;
         if (element != null) {
             for (Map.Entry<String, JsonElement> object : element.entrySet()) {
                 SoundEvent event = new SoundEvent(new Identifier(CustomRecordMod.MODID, object.getValue().getAsJsonObject().get("filename").getAsString()));
                 Item item = Registry.ITEM.get(Identifier.tryParse(object.getValue().getAsJsonObject().get("item").getAsString()));
                 ItemStack stack = new ItemStack(Objects.requireNonNull(item));
                 records.add(new ItemCustomRecord(new Identifier(CustomRecordMod.MODID, object.getValue().getAsJsonObject().get("filename").getAsString()), event, stack, object.getValue().getAsJsonObject().get("name").getAsString()));
-                //map.put(records.get(i++), object.getValue().getAsJsonObject().get("name").getAsString());
             }
         }
         return records;
