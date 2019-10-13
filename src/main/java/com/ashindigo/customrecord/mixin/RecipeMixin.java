@@ -34,8 +34,8 @@ public abstract class RecipeMixin extends JsonDataLoader {
 
     @Inject(method = "method_20705(Ljava/util/Map;Lnet/minecraft/resource/ResourceManager;Lnet/minecraft/util/profiler/Profiler;)V", at = @At("RETURN"))
     private void addRecipe(CallbackInfo info) {
-        ImmutableMap.Builder<RecipeType<?>, Map<Identifier, Recipe<?>>> iMapB = new ImmutableMap.Builder<>();
-        Map<Identifier, Recipe<?>> map = new HashMap<>();
+        HashMap<RecipeType<?>, Map<Identifier, Recipe<?>>> iMapB;
+        HashMap<Identifier, Recipe<?>> map = new HashMap<>(recipeMap.get(RecipeType.CRAFTING));
         for (ItemCustomRecord item : CustomRecordMod.list) {
             map.put(item.getID(), new ShapedRecipe(item.getID(), "", 3, 3,
                     DefaultedList.copyOf(Ingredient.EMPTY,
@@ -44,10 +44,11 @@ public abstract class RecipeMixin extends JsonDataLoader {
                             Ingredient.EMPTY, Ingredient.ofItems(Items.BLACK_TERRACOTTA), Ingredient.EMPTY),
                     new ItemStack(item)));
         }
-        map.putAll(recipeMap.get(RecipeType.CRAFTING));
+        iMapB = new HashMap<>(recipeMap);
         iMapB.put(RecipeType.CRAFTING, map);
-        recipeMap = iMapB.build();
-
+        ImmutableMap.Builder<RecipeType<?>, Map<Identifier, Recipe<?>>> builder = ImmutableMap.builder();
+        builder.putAll(iMapB);
+        recipeMap = builder.build();
     }
 
 }
