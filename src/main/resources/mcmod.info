@@ -1,14 +1,14 @@
 [
 {
   "modid": "customrecord",
-  "name": "Custom Record",
-  "description": "Add custom records to the game",
+  "name": "Records",
+  "description": "Fork of Custom Record for usage in TerraFirmaCraft: The Final Frontier.",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
-  "authorList": ["AshIndigo"],
-  "credits": "The Forge and FML guys, for making forge",
+  "authorList": ["AshIndigo", "Lylythii"],
+  "credits": "AshIndigo, the original mod author.",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []

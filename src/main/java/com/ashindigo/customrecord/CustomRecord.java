@@ -36,11 +36,13 @@ public class CustomRecord {
     @SidedProxy(clientSide = "com.ashindigo.customrecord.ClientProxy", serverSide = "com.ashindigo.customrecord.CommonProxy")
     private static CommonProxy proxy;
 
+	/*
     @SubscribeEvent
     public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
         for (ItemCustomRecord item : RecordJsonHandler.getRecipeMap().keySet()) {
             item.setItem(new ItemStack(Objects.requireNonNull(Item.getByNameOrId(RecordJsonHandler.getRecipeMap().get(item).getKey())), 1, RecordJsonHandler.getRecipeMap().get(item).getValue()));
         }
+		
         for (ItemCustomRecord record : RecordJsonHandler.getRecords()) {
             NonNullList<Ingredient> list = NonNullList.create();
             list.add(0, Ingredient.EMPTY);
@@ -55,7 +57,9 @@ public class CustomRecord {
             list.add(8, Ingredient.EMPTY);
             event.getRegistry().register(new ShapedRecipes("", 3, 3, list, new ItemStack(record)).setRegistryName(Objects.requireNonNull(record.getRegistryName())));
         }
+		
     }
+	*/
 
     @SubscribeEvent
     public static void registerModels(ModelRegistryEvent event) {
